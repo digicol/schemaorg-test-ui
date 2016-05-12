@@ -1,0 +1,33 @@
+Alias /schemaorg-test /path/to/schemaorg-test-ui/web
+
+<Directory /path/to/schemaorg-test-ui/web>
+
+    # Apache <= 2.2 syntax:
+    # AllowOverride None
+    # Order Allow,Deny
+    # Allow from All
+    #
+    # Apache 2.4 syntax:
+    Require all granted
+
+    Options -MultiViews
+
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
+    RewriteRule ^(.*) - [E=BASE:%1]
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteRule ^app\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
+    # If the requested filename exists, simply serve it.
+    # We only want to let Apache serve files and not directories.
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Rewrite all other queries to the front controller.
+    # For Symfony dev environment:
+    # RewriteRule ^ %{ENV:BASE}/app_dev.php [L]
+    # For Symfony prod environment:
+    RewriteRule ^ %{ENV:BASE}/app.php [L]
+
+</Directory>

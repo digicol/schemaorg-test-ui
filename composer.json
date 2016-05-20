@@ -1,5 +1,5 @@
 {
-    "name": "digicol/schemaorg.test.ui",
+    "name": "digicol/schemaorg-test-ui",
     "license": "proprietary",
     "type": "project",
     "autoload": {
@@ -32,8 +32,15 @@
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "digicol/schemaorg-sdk": "dev-master"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/digicol/schemaorg-sdk"
+        }
+    ],
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

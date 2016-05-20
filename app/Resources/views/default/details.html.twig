@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container" resource="{{ thing.properties.sameAs[0]['@id'] }}" typeof="schema:{{ thing.type }}">
+
+        <p><a href="{{ path('homepage') }}">Home</a></p>
+
+        <h1>
+            {{ content_source_params.name }}
+            <small>{{ content_source_params.description }}</small>
+        </h1>
+
+        <h2>
+            <span property="schema:name">{{ thing.reconciled.name[0]['@value'] }}</span>
+            <small>[{{ thing.type }}]</small>
+        </h2>
+
+        {% if thing.reconciled.thumbnail %}
+            <img class="media-object" src="{{ thing.reconciled.thumbnail.contentUrl[0]['@id'] }}"/>
+        {% endif %}
+
+        <div property="schema:description">
+            {% if thing.reconciled.text[0]['@type'] is defined and thing.reconciled.text[0]['@type'] == 'http://www.w3.org/1999/xhtml' %}
+                {{ thing.reconciled.text[0]['@value']|raw }}
+            {% else %}
+                {{ thing.reconciled.text[0]['@value'] }}
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}

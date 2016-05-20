@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container" typeof="schema:SearchAction">
+
+        <p><a href="{{ path('homepage') }}">Home</a></p>
+
+        <h1>
+            {{ content_source_params.name }}
+            <small>{{ content_source_params.description }}</small>
+        </h1>
+
+        <h2>
+            {{ search_action_params.name }}
+            <small>{{ search_action_params.description }}</small>
+        </h2>
+
+        <form action="" method="get" class="form-inline">
+
+            <div class="form-group">
+                <input name="q" type="text" class="form-control" autofocus="autofocus" value="{{ q }}"/>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Search" />
+
+        </form>
+
+        <p>{{ search_result_meta[ 'opensearch:totalResults'] }} items found.</p>
+
+        <nav>
+            <ul class="pagination">
+                <li>
+                    <a href="{{ path('search', {'content_source_key': content_source_key, 'search_action_key': search_action_key, 'q': q, 'p': pagination.previous_page}) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% for page in pagination.pages %}
+                    <li {% if page == pagination.current_page %}class="active"{% endif %}>
+                        <a href="{{ path('search', {'content_source_key': content_source_key, 'search_action_key': search_action_key, 'q': q, 'p': page}) }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+                <li>
+                    <a href="{{ path('search', {'content_source_key': content_source_key, 'search_action_key': search_action_key, 'q': q, 'p': pagination.next_page}) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div property="schema:result">
+
+            {% for thing in search_result %}
+
+                <div class="media" resource="{{ thing.properties.sameAs[0]['@id'] }}" typeof="schema:{{ thing.type }}">
+                    {% if thing.reconciled.thumbnail %}
+                    <div class="media-left">
+                        <a href="{{ path('details', {'content_source_key': content_source_key, 'thing_uri': thing.properties.sameAs[0]['@id']|e('url')}) }}">
+                            <img class="media-object" src="{{ thing.reconciled.thumbnail.contentUrl[0]['@id'] }}" width="64"/>
+                        </a>
+                    </div>
+                    {% endif %}
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <a href="{{ path('details', {'content_source_key': content_source_key, 'thing_uri': thing.properties.sameAs[0]['@id']|e('url')}) }}">
+                                <span property="schema:name">{{ thing.reconciled.name[0]['@value'] }}</span>
+                            </a>
+                            <small>[{{ thing.type }}]</small>
+                        </h4>
+                        <div property="schema:description">
+                            {% if thing.reconciled.text[0]['@type'] is defined and thing.reconciled.text[0]['@type'] == 'http://www.w3.org/1999/xhtml' %}
+                                {{ thing.reconciled.text[0]['@value']|raw }}
+                            {% else %}
+                                {{ thing.reconciled.text[0]['@value'] }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% endblock %}

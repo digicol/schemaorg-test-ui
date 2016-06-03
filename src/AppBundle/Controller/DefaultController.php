@@ -115,17 +115,18 @@ class DefaultController extends Controller
         );
 
         $search_action->execute();
+        
+        $search_result = $search_action->getProperties();
 
-        $search_result = [ ];
-
-        foreach ($search_action->getResult() as $thing)
+        // Convert objects in "item" into arrays
+        
+        foreach ($search_result[ 'result' ][ 'itemListElement' ] as $key => $list_item)
         {
-            $search_result[ ] = $utils->getThingTemplateVars($thing);
+            $thing = $list_item[ 'item' ];
+            $search_result[ 'result' ][ 'itemListElement' ][ $key ][ 'item' ] = $utils->getThingTemplateVars($thing); 
         }
-
+        
         $tpl_vars[ 'search_result' ] = $search_result;
-
-        $tpl_vars[ 'search_result_meta' ] = $search_action->getResultMeta();
 
         $this->addPaginationTemplateVars($tpl_vars);
 
@@ -135,10 +136,10 @@ class DefaultController extends Controller
 
     protected function addPaginationTemplateVars(&$tpl_vars)
     {
-        $items_per_page = $tpl_vars[ 'search_result_meta' ][ 'opensearch:itemsPerPage' ];
+        $items_per_page = $tpl_vars[ 'search_result' ][ 'result' ][ 'opensearch:itemsPerPage' ];
 
-        $current_page = ceil($tpl_vars[ 'search_result_meta' ][ 'opensearch:startIndex' ] / $items_per_page);
-        $last_page = max(1, ceil($tpl_vars[ 'search_result_meta' ][ 'opensearch:totalResults' ] / $items_per_page));
+        $current_page = ceil($tpl_vars[ 'search_result' ][ 'result' ][ 'opensearch:startIndex' ] / $items_per_page);
+        $last_page = max(1, ceil($tpl_vars[ 'search_result' ][ 'result' ][ 'numberOfItems' ] / $items_per_page));
         $previous_page = max(1, ($current_page - 1));
         $next_page = min($last_page, ($current_page + 1));
 

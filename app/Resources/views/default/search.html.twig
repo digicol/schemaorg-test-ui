@@ -26,7 +26,7 @@
 
         </form>
 
-        <p>{{ search_result_meta[ 'opensearch:totalResults'] }} items found.</p>
+        <p>{{ search_result[ 'result' ][ 'numberOfItems' ] }} items found.</p>
 
         <nav>
             <ul class="pagination">
@@ -50,8 +50,8 @@
 
         <div property="schema:result">
 
-            {% for thing in search_result %}
-
+            {% for list_item in search_result[ 'result' ][ 'itemListElement' ] %}
+                {% set thing = list_item.item %}
                 <div class="media" resource="{{ thing.properties.sameAs[0]['@id'] }}" typeof="schema:{{ thing.type }}">
                     {% if thing.reconciled.thumbnail %}
                     <div class="media-left">

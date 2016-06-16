@@ -1695,16 +1695,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.0.6",
+            "version": "v3.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "a821ed51b87f5ceda834140e5f0c06e9547a86d4"
+                "reference": "272ab3327c3d311aaa9f634730162ea00e9d9e93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/a821ed51b87f5ceda834140e5f0c06e9547a86d4",
-                "reference": "a821ed51b87f5ceda834140e5f0c06e9547a86d4",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/272ab3327c3d311aaa9f634730162ea00e9d9e93",
+                "reference": "272ab3327c3d311aaa9f634730162ea00e9d9e93",
                 "shasum": ""
             },
             "require": {
@@ -1821,7 +1821,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-05-09 22:13:31"
+            "time": "2016-06-06 16:52:46"
         },
         {
             "name": "twbs/bootstrap",
@@ -1943,12 +1943,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digicol/schemaorg-sdk.git",
-                "reference": "9574e18f8f4ea3b99c5e41aefa72097ab6c0b69d"
+                "reference": "4028020506bf26e34190a42d334f0601ea70fc1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digicol/schemaorg-sdk/zipball/9574e18f8f4ea3b99c5e41aefa72097ab6c0b69d",
-                "reference": "9574e18f8f4ea3b99c5e41aefa72097ab6c0b69d",
+                "url": "https://api.github.com/repos/digicol/schemaorg-sdk/zipball/4028020506bf26e34190a42d334f0601ea70fc1c",
+                "reference": "4028020506bf26e34190a42d334f0601ea70fc1c",
                 "shasum": ""
             },
             "require": {
@@ -1979,7 +1979,7 @@
                 "source": "https://github.com/digicol/schemaorg-sdk/tree/master",
                 "issues": "https://github.com/digicol/schemaorg-sdk/issues"
             },
-            "time": "2016-06-03 07:18:17"
+            "time": "2016-06-16 13:50:11"
         },
         {
             "name": "sensio/generator-bundle",
@@ -2035,7 +2035,7 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",

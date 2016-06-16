@@ -108,7 +108,7 @@ class DefaultController extends Controller
         $search_action->setInputProperties
         (
             [
-                'q' => $query,
+                'query' => $query,
                 'opensearch:count' => 10,
                 'opensearch:startPage' => $page
             ]

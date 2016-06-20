@@ -36,7 +36,7 @@ class Utils
             [
                 'type' => $type,
                 'properties' => $properties,
-                'reconciled' => \Digicol\SchemaOrg\Utils::reconcileThingProperties($type, $properties)
+                'reconciled' => $thing->getReconciledProperties()
             ];
     }
 

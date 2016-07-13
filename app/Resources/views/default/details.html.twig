@@ -13,7 +13,18 @@
 
         <h2>
             <span property="schema:name">{{ thing.reconciled.name[0]['@value'] }}</span>
-            <small>[{{ thing.type }}]</small>
+            <small>
+                {% if thing.properties.dateCreated is defined %}
+                    {% if thing.properties.dateCreated[0]['@type'] is defined and thing.properties.dateCreated[0]['@type'] == 'DateTime' %}
+                        – {{ thing.properties.dateCreated[0]['@value']|date("D, j M Y H:i") }}
+                    {% elseif thing.properties.dateCreated[0]['@type'] is defined and thing.properties.dateCreated[0]['@type'] == 'Date' %}
+                        – {{ thing.properties.dateCreated[0]['@value']|date("D, j M Y") }}
+                    {% else %}
+                        – {{ thing.properties.dateCreated[0]['@value'] }}
+                    {% endif %}
+                {% endif %}
+                – {{ thing.type }}
+            </small>
         </h2>
 
         {% if thing.reconciled.thumbnail %}

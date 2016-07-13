@@ -65,7 +65,18 @@
                             <a href="{{ path('details', {'content_source_key': content_source_key, 'thing_uri': thing.properties.sameAs[0]['@id']|e('url')}) }}">
                                 <span property="schema:name">{{ thing.reconciled.name[0]['@value'] }}</span>
                             </a>
-                            <small>[{{ thing.type }}]</small>
+                            <small>
+                                {% if thing.properties.dateCreated is defined %}
+                                    {% if thing.properties.dateCreated[0]['@type'] is defined and thing.properties.dateCreated[0]['@type'] == 'DateTime' %}
+                                        – {{ thing.properties.dateCreated[0]['@value']|date("D, j M Y H:i") }}
+                                    {% elseif thing.properties.dateCreated[0]['@type'] is defined and thing.properties.dateCreated[0]['@type'] == 'Date' %}
+                                        – {{ thing.properties.dateCreated[0]['@value']|date("D, j M Y") }}
+                                    {% else %}
+                                        – {{ thing.properties.dateCreated[0]['@value'] }}
+                                    {% endif %}
+                                {% endif %}
+                                – {{ thing.type }}
+                            </small>
                         </h4>
                         <div property="schema:description">
                             {% if thing.reconciled.description[0]['@type'] is defined and thing.reconciled.description[0]['@type'] == 'http://www.w3.org/1999/xhtml' %}

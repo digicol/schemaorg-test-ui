@@ -68,10 +68,10 @@
                             <small>[{{ thing.type }}]</small>
                         </h4>
                         <div property="schema:description">
-                            {% if thing.reconciled.text[0]['@type'] is defined and thing.reconciled.text[0]['@type'] == 'http://www.w3.org/1999/xhtml' %}
-                                {{ thing.reconciled.text[0]['@value']|raw }}
+                            {% if thing.reconciled.description[0]['@type'] is defined and thing.reconciled.description[0]['@type'] == 'http://www.w3.org/1999/xhtml' %}
+                                {{ thing.reconciled.description[0]['@value']|raw }}
                             {% else %}
-                                {{ thing.reconciled.text[0]['@value'] }}
+                                {{ thing.reconciled.description[0]['@value'] }}
                             {% endif %}
                         </div>
                     </div>

@@ -92,6 +92,13 @@
 
         </div>
 
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#dataDump" aria-expanded="false" aria-controls="dataDump">
+            Show all data
+        </button>
+        <div class="collapse" id="dataDump">
+            <pre>{{ search_result_data_dump }}</pre>
+        </div>
+
     </div>
 
 {% endblock %}

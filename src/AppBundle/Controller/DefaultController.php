@@ -61,6 +61,8 @@ class DefaultController extends Controller
         $thing = $content_source->newThing($thing_uri);
 
         $tpl_vars[ 'thing' ] = $utils->getThingTemplateVars($thing);
+        
+        $tpl_vars[ 'thing_data_dump' ] = print_r($tpl_vars[ 'thing' ], true);
 
         return $this->render('default/details.html.twig', $tpl_vars);
     }
@@ -128,6 +130,8 @@ class DefaultController extends Controller
         
         $tpl_vars[ 'search_result' ] = $search_result;
 
+        $tpl_vars[ 'search_result_data_dump' ] = print_r($tpl_vars[ 'search_result' ], true);
+        
         $this->addPaginationTemplateVars($tpl_vars);
 
         return $this->render('default/search.html.twig', $tpl_vars);

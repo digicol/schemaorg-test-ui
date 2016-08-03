@@ -52,37 +52,37 @@
 
             {% for list_item in search_result[ 'result' ][ 'itemListElement' ] %}
                 {% set thing = list_item.item %}
-                <div class="media" resource="{{ thing.properties.sameAs[0]['@id'] }}" typeof="schema:{{ thing.type }}">
-                    {% if thing.reconciled.thumbnail %}
+                <div class="media" resource="{{ thing.sameAs[0]['@id'] }}" typeof="schema:{{ thing['@type'] }}">
+                    {% if thing['digicol:reconciled'].thumbnail %}
                     <div class="media-left">
-                        <a href="{{ path('details', {'content_source_key': content_source_key, 'thing_uri': thing.properties.sameAs[0]['@id']|e('url')}) }}">
-                            <img class="media-object" src="{{ thing.reconciled.thumbnail.contentUrl[0]['@id'] }}" width="64"/>
+                        <a href="{{ path('details', {'content_source_key': content_source_key, 'thing_uri': thing.sameAs[0]['@id']|e('url')}) }}">
+                            <img class="media-object" src="{{ thing['digicol:reconciled'].thumbnail.contentUrl[0]['@id'] }}" width="64"/>
                         </a>
                     </div>
                     {% endif %}
                     <div class="media-body">
                         <h4 class="media-heading">
-                            <a href="{{ path('details', {'content_source_key': content_source_key, 'thing_uri': thing.properties.sameAs[0]['@id']|e('url')}) }}">
-                                <span property="schema:name">{{ thing.reconciled.name[0]['@value'] }}</span>
+                            <a href="{{ path('details', {'content_source_key': content_source_key, 'thing_uri': thing.sameAs[0]['@id']|e('url')}) }}">
+                                <span property="schema:name">{{ thing['digicol:reconciled'].name[0]['@value'] }}</span>
                             </a>
                             <small>
-                                {% if thing.properties.dateCreated is defined %}
-                                    {% if thing.properties.dateCreated[0]['@type'] is defined and thing.properties.dateCreated[0]['@type'] == 'DateTime' %}
-                                        – {{ thing.properties.dateCreated[0]['@value']|date("D, j M Y H:i") }}
-                                    {% elseif thing.properties.dateCreated[0]['@type'] is defined and thing.properties.dateCreated[0]['@type'] == 'Date' %}
-                                        – {{ thing.properties.dateCreated[0]['@value']|date("D, j M Y") }}
+                                {% if thing.dateCreated is defined %}
+                                    {% if thing.dateCreated[0]['@type'] is defined and thing.dateCreated[0]['@type'] == 'DateTime' %}
+                                        – {{ thing.dateCreated[0]['@value']|date("D, j M Y H:i") }}
+                                    {% elseif thing.dateCreated[0]['@type'] is defined and thing.dateCreated[0]['@type'] == 'Date' %}
+                                        – {{ thing.dateCreated[0]['@value']|date("D, j M Y") }}
                                     {% else %}
-                                        – {{ thing.properties.dateCreated[0]['@value'] }}
+                                        – {{ thing.dateCreated[0]['@value'] }}
                                     {% endif %}
                                 {% endif %}
-                                – {{ thing.type }}
+                                – {{ thing['@type'] }}
                             </small>
                         </h4>
                         <div property="schema:description">
-                            {% if thing.reconciled.description[0]['@type'] is defined and thing.reconciled.description[0]['@type'] == 'http://www.w3.org/1999/xhtml' %}
-                                {{ thing.reconciled.description[0]['@value']|raw }}
+                            {% if thing['digicol:reconciled'].description[0]['@type'] is defined and thing['digicol:reconciled'].description[0]['@type'] == 'http://www.w3.org/1999/xhtml' %}
+                                {{ thing['digicol:reconciled'].description[0]['@value']|raw }}
                             {% else %}
-                                {{ thing.reconciled.description[0]['@value'] }}
+                                {{ thing['digicol:reconciled'].description[0]['@value'] }}
                             {% endif %}
                         </div>
                     </div>

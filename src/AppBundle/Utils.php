@@ -29,15 +29,11 @@ class Utils
     
     public function getThingTemplateVars(\Digicol\SchemaOrg\ThingInterface $thing, array $params = [ ])
     {
-        $type = $thing->getType();
         $properties = $thing->getProperties();
+        
+        $properties[ 'digicol:reconciled' ] = $thing->getReconciledProperties($properties); 
 
-        return
-            [
-                'type' => $type,
-                'properties' => $properties,
-                'reconciled' => $thing->getReconciledProperties()
-            ];
+        return $properties;
     }
 
 

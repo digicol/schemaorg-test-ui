@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <div class="container" resource="{{ thing.properties.sameAs[0]['@id'] }}" typeof="schema:{{ thing.type }}">
+    <div class="container" resource="{{ thing.sameAs[0]['@id'] }}" typeof="schema:{{ thing['@type'] }}">
 
         <p><a href="{{ path('homepage') }}">Home</a></p>
 
@@ -12,30 +12,30 @@
         </h1>
 
         <h2>
-            <span property="schema:name">{{ thing.reconciled.name[0]['@value'] }}</span>
+            <span property="schema:name">{{ thing['digicol:reconciled'].name[0]['@value'] }}</span>
             <small>
-                {% if thing.properties.dateCreated is defined %}
-                    {% if thing.properties.dateCreated[0]['@type'] is defined and thing.properties.dateCreated[0]['@type'] == 'DateTime' %}
-                        – {{ thing.properties.dateCreated[0]['@value']|date("D, j M Y H:i") }}
-                    {% elseif thing.properties.dateCreated[0]['@type'] is defined and thing.properties.dateCreated[0]['@type'] == 'Date' %}
-                        – {{ thing.properties.dateCreated[0]['@value']|date("D, j M Y") }}
+                {% if thing.dateCreated is defined %}
+                    {% if thing.dateCreated[0]['@type'] is defined and thing.dateCreated[0]['@type'] == 'DateTime' %}
+                        – {{ thing.dateCreated[0]['@value']|date("D, j M Y H:i") }}
+                    {% elseif thing.dateCreated[0]['@type'] is defined and thing.dateCreated[0]['@type'] == 'Date' %}
+                        – {{ thing.dateCreated[0]['@value']|date("D, j M Y") }}
                     {% else %}
-                        – {{ thing.properties.dateCreated[0]['@value'] }}
+                        – {{ thing.dateCreated[0]['@value'] }}
                     {% endif %}
                 {% endif %}
-                – {{ thing.type }}
+                – {{ thing['@type'] }}
             </small>
         </h2>
 
-        {% if thing.reconciled.thumbnail %}
-            <img class="media-object" src="{{ thing.reconciled.thumbnail.contentUrl[0]['@id'] }}"/>
+        {% if thing['digicol:reconciled'].thumbnail %}
+            <img class="media-object" src="{{ thing['digicol:reconciled'].thumbnail.contentUrl[0]['@id'] }}"/>
         {% endif %}
 
         <div property="schema:description">
-            {% if thing.reconciled.text[0]['@type'] is defined and thing.reconciled.text[0]['@type'] == 'http://www.w3.org/1999/xhtml' %}
-                {{ thing.reconciled.text[0]['@value']|raw }}
+            {% if thing['digicol:reconciled'].text[0]['@type'] is defined and thing['digicol:reconciled'].text[0]['@type'] == 'http://www.w3.org/1999/xhtml' %}
+                {{ thing['digicol:reconciled'].text[0]['@value']|raw }}
             {% else %}
-                {{ thing.reconciled.text[0]['@value'] }}
+                {{ thing['digicol:reconciled'].text[0]['@value'] }}
             {% endif %}
         </div>
 

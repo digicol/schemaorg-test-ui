@@ -53,10 +53,10 @@
             {% for list_item in search_result[ 'result' ][ 'itemListElement' ] %}
                 {% set thing = list_item.item %}
                 <div class="media" resource="{{ thing.sameAs[0]['@id'] }}" typeof="schema:{{ thing['@type'] }}">
-                    {% if thing['digicol:reconciled'].thumbnail %}
+                    {% if thing['digicol:reconciled'].thumbnailUrl %}
                     <div class="media-left">
                         <a href="{{ path('details', {'content_source_key': content_source_key, 'thing_uri': thing.sameAs[0]['@id']|e('url')}) }}">
-                            <img class="media-object" src="{{ thing['digicol:reconciled'].thumbnail.contentUrl[0]['@id'] }}" width="64"/>
+                            <img class="media-object" src="{{ thing['digicol:reconciled'].thumbnailUrl }}" width="64"/>
                         </a>
                     </div>
                     {% endif %}

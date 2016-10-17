@@ -27,8 +27,8 @@
             </small>
         </h2>
 
-        {% if thing['digicol:reconciled']['digicol:previewImage'] %}
-            <img class="media-object" src="{{ thing['digicol:reconciled']['digicol:previewImage'].contentUrl[0]['@id'] }}"/>
+        {% if thing['digicol:reconciled']['digicol:largestThumbnailUrl'] %}
+            <img class="media-object" src="{{ thing['digicol:reconciled']['digicol:largestThumbnailUrl'] }}"/>
         {% endif %}
 
         <div property="schema:description">

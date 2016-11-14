@@ -21,7 +21,16 @@ class DefaultController extends Controller
         {
             $content_source = $utils->newContentSource($content_source_params);
 
-            $content_sources[ $key ][ 'search_actions' ] = $content_source->describeSearchActions();
+            $content_sources[ $key ][ 'search_actions' ] = [ ];
+            
+            foreach ($content_source->getPotentialSearchActions() as $key => $potentialSearchAction)
+            {
+                $content_sources[ $key ][ 'search_actions' ][ $key ] =
+                    [
+                        'name' => $potentialSearchAction->getName(),
+                        'description' => $potentialSearchAction->getDescription()
+                    ];
+            }
         }
 
         $tpl_vars =
@@ -96,39 +105,32 @@ class DefaultController extends Controller
 
         $content_source = $utils->newContentSource($content_sources[ $content_source_key ]);
 
-        $search_actions = $content_source->describeSearchActions();
+        $potential_search_actions = $content_source->getPotentialSearchActions();
 
-        if (! isset($search_actions[ $search_action_key ]))
+        if (! isset($potential_search_actions[ $search_action_key ]))
         {
-            throw $this->createNotFoundException('Search action does not exist.');
+            throw $this->createNotFoundException('Potential search action does not exist.');
         }
 
-        $tpl_vars[ 'search_action_params' ] = $search_actions[ $search_action_key ];
-
-        $search_action = $content_source->newSearchAction($search_actions[ $search_action_key ]);
-
-        $search_action->setInputProperties
-        (
-            [
-                'query' => $query,
-                'opensearch:count' => 10,
-                'opensearch:startPage' => $page
-            ]
-        );
-
-        $search_action->execute();
+        $potential_search_action = $potential_search_actions[ $search_action_key ];
         
-        $search_result = $search_action->getProperties();
+        $tpl_vars[ 'search_action_params' ] = $potential_search_action->getParams();
 
-        // Convert objects in "item" into arrays
+        $search_action = $potential_search_action->newSearchAction();
+
+        $search_action->setQuery($query);
+        $search_action->setItemsPerPage(10);
+        $search_action->setStartIndex((($page - 1) * 10) + 1);
+
+        $search_result = $search_action->getResult();
+
+        $tpl_vars[ 'search_result' ][ 'result' ] = $search_result->getOutputProperties();
+        $tpl_vars[ 'search_result' ][ 'items' ] = [ ];
         
-        foreach ($search_result[ 'result' ][ 'itemListElement' ] as $key => $list_item)
+        foreach ($search_result as $thing)
         {
-            $thing = $list_item[ 'item' ];
-            $search_result[ 'result' ][ 'itemListElement' ][ $key ][ 'item' ] = $utils->getThingTemplateVars($thing); 
+            $tpl_vars[ 'search_result' ][ 'items' ][ ] = $utils->getThingTemplateVars($thing);
         }
-        
-        $tpl_vars[ 'search_result' ] = $search_result;
 
         $tpl_vars[ 'search_result_data_dump' ] = print_r($tpl_vars[ 'search_result' ], true);
         

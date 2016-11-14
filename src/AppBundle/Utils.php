@@ -31,7 +31,11 @@ class Utils
     {
         $properties = $thing->getProperties();
         
-        $properties[ 'digicol:reconciled' ] = $thing->getReconciledProperties($properties); 
+        $properties[ 'digicol:reconciled' ] = \Digicol\SchemaOrg\Utils::reconcileThingProperties
+        (
+            $thing->getType(),
+            $properties
+        );
         
         // Some content sources provide multiple thumbnails; find the largest one
         // (to show on the details page)

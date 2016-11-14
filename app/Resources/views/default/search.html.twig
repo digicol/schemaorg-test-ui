@@ -26,7 +26,7 @@
 
         </form>
 
-        <p>{{ search_result[ 'result' ][ 'numberOfItems' ] }} items found.</p>
+        <p>{{ search_result.result.numberOfItems }} items found.</p>
 
         <nav>
             <ul class="pagination">
@@ -50,8 +50,7 @@
 
         <div property="schema:result">
 
-            {% for list_item in search_result[ 'result' ][ 'itemListElement' ] %}
-                {% set thing = list_item.item %}
+            {% for thing in search_result[ 'items' ] %}
                 <div class="media" resource="{{ thing.sameAs[0]['@id'] }}" typeof="schema:{{ thing['@type'] }}">
                     {% if thing['digicol:reconciled'].thumbnailUrl %}
                     <div class="media-left">

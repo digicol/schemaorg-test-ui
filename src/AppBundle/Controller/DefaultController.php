@@ -2,9 +2,12 @@
 
 namespace AppBundle\Controller;
 
+use Digicol\SchemaOrg\Dcx\DcxAdapter;
+use Digicol\SchemaOrg\Sdk\AdapterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+
 
 class DefaultController extends Controller
 {
@@ -19,13 +22,14 @@ class DefaultController extends Controller
 
         foreach ($content_sources as $key => $content_source_params)
         {
+            /** @var AdapterInterface $content_source */
             $content_source = $utils->newContentSource($content_source_params);
 
             $content_sources[ $key ][ 'search_actions' ] = [ ];
             
-            foreach ($content_source->getPotentialSearchActions() as $key => $potentialSearchAction)
+            foreach ($content_source->getPotentialSearchActions() as $key2 => $potentialSearchAction)
             {
-                $content_sources[ $key ][ 'search_actions' ][ $key ] =
+                $content_sources[ $key ][ 'search_actions' ][ $key2 ] =
                     [
                         'name' => $potentialSearchAction->getName(),
                         'description' => $potentialSearchAction->getDescription()
@@ -65,6 +69,7 @@ class DefaultController extends Controller
 
         $tpl_vars[ 'content_source_params' ] = $content_sources[ $content_source_key ];
 
+        /** @var AdapterInterface $content_source */
         $content_source = $utils->newContentSource($content_sources[ $content_source_key ]);
 
         $thing = $content_source->newThing($thing_uri);
@@ -103,6 +108,7 @@ class DefaultController extends Controller
 
         $tpl_vars[ 'content_source_params' ] = $content_sources[ $content_source_key ];
 
+        /** @var AdapterInterface $content_source */
         $content_source = $utils->newContentSource($content_sources[ $content_source_key ]);
 
         $potential_search_actions = $content_source->getPotentialSearchActions();

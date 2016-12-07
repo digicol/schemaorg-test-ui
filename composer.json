@@ -16,27 +16,39 @@
             "Tests\\": "tests/"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/opt/schemaorg-sdk"
+        },
+        {
+            "type": "path",
+            "url": "/opt/schemaorg-dcx-adapter"
+        },
+        {
+            "type": "path",
+            "url": "/opt/schemaorg-gettyimages-adapter"
+        }
+    ],
     "require": {
         "php": ">=5.5.9",
-        "symfony/symfony": "3.1.*",
+        "symfony/symfony": "^3.1",
         "symfony/monolog-bundle": "^2.8",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "components/jquery": "~2.2",
-        "twbs/bootstrap": "~3.3"
+        "twbs/bootstrap": "~3.3",
+        "digicol/schemaorg-sdk": "dev-master",
+        "digicol/schemaorg-dcx-adapter": "dev-master",
+        "digicol/schemaorg-gettyimages-adapter": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0",
-        "digicol/schemaorg-sdk": "dev-master"
+        "symfony/phpunit-bridge": "^3.0"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/digicol/schemaorg-sdk"
-        }
-    ],
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

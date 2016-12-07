@@ -2,12 +2,15 @@
 
 namespace AppBundle;
 
+use Digicol\SchemaOrg\Sdk\AdapterInterface;
+use Digicol\SchemaOrg\Sdk\ThingInterface;
+
 
 class Utils
 {
     /**
      * @param array $params
-     * @return \Digicol\SchemaOrg\AdapterInterface
+     * @return AdapterInterface
      */
     public function newContentSource(array $params)
     {
@@ -27,11 +30,11 @@ class Utils
     }
     
     
-    public function getThingTemplateVars(\Digicol\SchemaOrg\ThingInterface $thing, array $params = [ ])
+    public function getThingTemplateVars(ThingInterface $thing, array $params = [ ])
     {
         $properties = $thing->getProperties();
         
-        $properties[ 'digicol:reconciled' ] = \Digicol\SchemaOrg\Utils::reconcileThingProperties
+        $properties[ 'digicol:reconciled' ] = \Digicol\SchemaOrg\Sdk\Utils::reconcileThingProperties
         (
             $thing->getType(),
             $properties

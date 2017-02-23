@@ -20,6 +20,10 @@
     "prefer-stable": true,
     "repositories": [
         {
+            "type": "vcs",
+            "url": "https://github.com/digicol/dcx-sdk-php"
+        },
+        {
             "type": "path",
             "url": "/opt/schemaorg-sdk"
         },

@@ -30,9 +30,11 @@ parameters:
         #     name: "DC-X"
         #     description: "Access to the local DC-X DAM"
         #     classname: "Digicol\\SchemaOrg\\Dcx\\DcxAdapter"
-        #     dc_systemdir: "/opt/dcx"
-        #     dc_configdir: "/etc/opt/dcx"
-        #     dc_app: "default"
+        #     url: "http://localhost/dcx/api/"
+        #     credentials:
+        #         username: "testuser"
+        #         password: "secret"
+        #     http_useragent: "DcxSchemaOrgTestUi"
         
         # Getty Images API content source
         # gettyimages:
